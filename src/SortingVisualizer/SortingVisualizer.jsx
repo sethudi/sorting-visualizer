@@ -4,6 +4,7 @@ import * as AlgorithmMerge from '../sortingAlgorithms/MergeSort.js';
 import * as AlgorithmBubble from '../sortingAlgorithms/BubbleSort.js';
 import * as AlgorithmQuick from '../sortingAlgorithms/QuickSort.js';
 import * as AlgorithmHeap from '../sortingAlgorithms/HeapSort.js';
+import Toolbar  from '../Toolbar/Toolbar';
 
 
 export default class SortingVisualizer extends React.Component{
@@ -12,6 +13,7 @@ export default class SortingVisualizer extends React.Component{
 
         this.state ={
             array: [],
+            count: 0,
         };
     }
 
@@ -23,7 +25,7 @@ export default class SortingVisualizer extends React.Component{
         const array =[];
 
         for( let i=0; i < 190; i++){
-            array.push(randomIntFromIntervals(5,700));
+            array.push(randomIntFromIntervals(5,650));
         }
         this.setState({array});
     }
@@ -99,7 +101,7 @@ export default class SortingVisualizer extends React.Component{
             const barTwoStyle = arrayBars[barTwoIdx].style;
             barOneStyle.height = `${newHeightOne}px`;
             barTwoStyle.height = `${newHeightTwo}px`;
-          }, i * 350);
+          }, i * 50);
         }
       }
     }
@@ -132,6 +134,7 @@ export default class SortingVisualizer extends React.Component{
     render(){
         const {array} =this.state
         return(
+          <div>
             <div className="array-container">
                 {array.map((value,idx)=>(
                     <div 
@@ -139,12 +142,19 @@ export default class SortingVisualizer extends React.Component{
                     key={idx} 
                     style={{height: value }}></div>
                 ))}
-                <button onClick= {() => this.resetArray()}>Generate New Array</button>
-                <button onClick= {() => this.mergeSort()}>Merge Sort</button>
-                <button onClick= {() => this.quickSort()}>Quick Sort</button>
-                <button onClick= {() => this.heapSort()}>Heap Sort</button>
-                <button onClick= {() => this.bubbleSort()}>Bubble Sort</button>
+                
+            </div> 
+            <div>
+              <Toolbar key ={this.state.count}
+               resetArray ={()=>this.resetArray()}
+               mergeSort ={()=>this.mergeSort()}
+               quickSort ={()=>this.quickSort()}
+               heapSort ={()=>this.heapSort()}
+               bubbleSort ={()=>this.bubbleSort()}
+              ></Toolbar>
             </div>
+            
+          </div>
             
         );
     }
